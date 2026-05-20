@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>廃棄登録 | バラ注文アプリ</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="logo-area">
+        <p class="logo-sub">Rose Order App</p>
+        <h1>バラ注文アプリ</h1>
+      </div>
+
+      <nav class="side-nav">
+        <a href="index">在庫一覧</a>
+        <a href="admin">品種登録</a>
+        <a href="stock">在庫登録</a>
+        <a href="order">注文登録</a>
+        <a href="waste" class="active">廃棄登録</a>
+
+        <div class="nav-divider"></div>
+
+        <a href="welcome.html" class="back-home">← ウェルカムへ戻る</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="page-header">
+        <div>
+          <p class="page-label">Waste</p>
+          <h2>廃棄登録</h2>
+        </div>
+      </header>
+
+      <section class="content-card form-card">
+        <div class="section-head single">
+          <div>
+            <h3>廃棄情報を登録</h3>
+            <p>登録済み在庫から品種を選び、廃棄本数を反映します</p>
+          </div>
+        </div>
+
+<form id="wasteForm"
+      class="waste-form"
+      action="/waste/add"
+      method="post">
+
+  <div class="form-grid">
+
+    <div class="form-group">
+
+      <label for="waste-variety">
+        品種名
+      </label>
+
+      <select id="waste-variety"
+              name="variety"
+              required>
+
+        <option value="">
+          品種を選択してください
+        </option>
+
+        <option th:each="rose : ${roses}"
+                th:value="${rose.variety}"
+                th:text="${rose.variety}">
+          品種名
+        </option>
+
+      </select>
+
+    </div>
+
+    <div class="form-group">
+
+      <label for="waste-quantity">
+        廃棄本数
+      </label>
+
+      <input type="number"
+             id="waste-quantity"
+             name="quantity"
+             min="1"
+             placeholder="例：3"
+             required>
+
+    </div>
+
+  </div>
+
+  <div class="form-actions">
+
+    <a href="/admin"
+       class="secondary-btn">
+      戻る
+    </a>
+
+    <button type="submit"
+            class="primary-btn">
+
+      廃棄を登録
+
+    </button>
+
+  </div>
+
+</form>
+ 
+        <div class="form-actions">
+  <button type="button" class="secondary-btn" id="downloadWasteCsvBtn">
+    廃棄データをCSV出力
+  </button>
+</div>
+      </section>
+    </main>
+  </div>
+
+  
+</body>
+</html>

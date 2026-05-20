@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理画面 | バラ注文アプリ</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="logo-area">
+        <p class="logo-sub">Rose Order App</p>
+        <h1>管理画面</h1>
+      </div>
+
+      <nav class="side-nav">
+        <a href="/" class="active">在庫一覧</a>
+        <a href="/add-flower">品種登録</a>
+        <a href="/stock">在庫登録</a>
+        <a href="/order">注文登録</a>
+        <a href="/waste">廃棄登録</a>
+
+        <div class="nav-divider"></div>
+
+        <a href="/welcome" class="back-home">← ウェルカムへ戻る</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="page-header">
+        <div>
+          <p class="page-label">Admin Dashboard</p>
+          <h2>バラ在庫管理</h2>
+        </div>
+        <a href="/add-flower" class="primary-btn">＋ 品種を登録</a>
+      </header>
+
+      <section class="summary-grid">
+        <article class="summary-card">
+          <p class="summary-title">登録品種数</p>
+          <p class="summary-value" th:text="${total}">0</p>
+        </article>
+
+        <article class="summary-card">
+          <p class="summary-title">日持ち品種</p>
+          <p class="summary-value" th:text="${longLastingCount}">0</p>
+        </article>
+
+        <article class="summary-card">
+          <p class="summary-title">香りバラ</p>
+          <p class="summary-value" th:text="${fragrantCount}">0</p>
+        </article>
+      </section>
+
+      <section class="content-card">
+        <div class="section-head">
+          <div>
+            <h3>在庫一覧</h3>
+            <p>色・特徴・画像を含めて管理できます</p>
+          </div>
+          <input type="text" class="search-box" placeholder="品種名で検索">
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+  <tr>
+    <th>画像</th>
+    <th>色</th>
+    <th>品種名</th>
+    <th>英語名</th>
+    <th>価格</th>
+    <th>在庫数</th>
+    <th>特徴</th>
+    <th>入荷日</th>
+    <th>状態</th>
+    <th>操作</th>
+  </tr>
+</thead>
+
+            <tbody>
+  <tr th:each="rose : ${roses}">
+
+    <td>
+      <div class="admin-thumb">
+        <img th:src="${rose.imagePath}" th:alt="${rose.variety}">
+      </div>
+    </td>
+
+    <td>
+      <span class="soft-color-tag"
+            th:text="${rose.color}">
+        色
+      </span>
+    </td>
+
+    <td th:text="${rose.variety}">
+      品種名
+    </td>
+
+    <td th:text="${rose.englishName}">
+      English
+    </td>
+
+    <td th:text="${rose.price + '円'}">
+      価格
+    </td>
+
+    <td th:text="${rose.quantity + '本'}">
+      在庫数
+    </td>
+
+    <td>
+      <span th:if="${rose.longLasting}"
+            class="feature-tag long">
+        日持ち
+      </span>
+
+      <span th:if="${rose.fragrant}"
+            class="feature-tag aroma">
+        香り
+      </span>
+
+      <span th:if="${!rose.longLasting and !rose.fragrant}">
+        -
+      </span>
+    </td>
+
+    <td>-</td>
+
+    <td>
+      <span class="status"
+      th:classappend="${rose.quantity <= 0} ? ' out' : (${rose.quantity >= 10} ? ' ok' : ' low')"
+      th:text="${rose.quantity <= 0} ? '売り切れ' : (${rose.quantity >= 10} ? '在庫あり' : '残り少なめ')">
+  状態
+</span>
+    </td>
+
+    <td>
+      <form th:action="@{/flower/delete}" method="post">
+
+        <input type="hidden"
+               name="id"
+               th:value="${rose.id}">
+
+        <button type="submit"
+                class="delete-btn">
+          削除
+        </button>
+
+      </form>
+    </td>
+
+  </tr>
+</tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

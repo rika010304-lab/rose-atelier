@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>注文履歴 | Rose Atelier</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+  <aside class="sidebar">
+
+    <div class="logo-area">
+      <p class="logo-sub">Rose Order App</p>
+      <h1>注文履歴</h1>
+    </div>
+
+    <nav class="side-nav">
+
+      <a href="/admin">在庫一覧</a>
+      <a href="/add-flower">品種登録</a>
+      <a href="/stock">在庫登録</a>
+      <a href="/order">注文登録</a>
+      <a href="/waste">廃棄登録</a>
+      <a href="/history" class="active">注文履歴</a>
+
+      <div class="nav-divider"></div>
+
+      <a href="/welcome" class="back-home">
+        ← ウェルカムへ戻る
+      </a>
+
+    </nav>
+
+  </aside>
+
+  <main class="main-content">
+<a href="/history/csv" class="primary-btn">
+  CSV出力
+</a>
+    <header class="page-header">
+
+      <div>
+        <p class="page-label">Order History</p>
+        <h2>注文履歴一覧</h2>
+      </div>
+
+    </header>
+
+    <section class="content-card">
+
+      <div class="section-head">
+        <div>
+          <h3>履歴一覧</h3>
+          <p>過去の注文履歴を確認できます</p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>注文日時</th>
+              <th>品種名</th>
+              <th>本数</th>
+              <th>単価</th>
+              <th>小計</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr th:each="history : ${histories}">
+
+              <td th:text="${#temporals.format(
+                    history.orderedAt,
+                    'yyyy/MM/dd HH:mm'
+              )}">
+                日時
+              </td>
+
+              <td th:text="${history.variety}">
+                品種名
+              </td>
+
+              <td th:text="${history.quantity + '本'}">
+                本数
+              </td>
+
+              <td th:text="${history.price + '円'}">
+                単価
+              </td>
+
+              <td th:text="${history.subtotal + '円'}">
+                小計
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+</body>
+</html>

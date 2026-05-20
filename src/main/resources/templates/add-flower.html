@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>品種登録 | バラ注文アプリ</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="app-layout">
+
+  <aside class="sidebar">
+    <div class="logo-area">
+      <p class="logo-sub">Rose Order App</p>
+      <h1>品種登録</h1>
+    </div>
+
+    <nav class="side-nav">
+      <a href="/">在庫一覧</a>
+      <a href="/stock">在庫登録</a>
+      <a href="/add-flower" class="active">品種登録</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+
+    <header class="page-header">
+      <div>
+        <p class="page-label">Flower Registration</p>
+        <h2>新品種を登録</h2>
+      </div>
+    </header>
+
+    <section class="content-card">
+
+      <form class="stock-form"
+      action="/add-flower/add"
+      method="post"
+      enctype="multipart/form-data">
+
+        <div class="form-group">
+  <label>色</label>
+  <select name="color" required>
+    <option value="">色を選択</option>
+    <option value="ピンク">ピンク</option>
+    <option value="レッド">レッド</option>
+    <option value="イエロー">イエロー</option>
+    <option value="ホワイト">ホワイト</option>
+    <option value="グリーン">グリーン</option>
+    <option value="オレンジ">オレンジ</option>
+    <option value="その他">その他</option>
+  </select>
+</div>
+
+        <div class="form-group">
+          <label>画像フォルダ名</label>
+          <input type="text" name="folder"
+                 placeholder="rose-pink" required>
+        </div>
+
+        <div class="form-group">
+  <label>画像ファイル</label>
+ <input type="file" name="imageFile" accept="image/*">
+</div>
+
+        <div class="form-group">
+          <label>品種名</label>
+          <input type="text" name="variety" required>
+        </div>
+
+        <div class="form-group">
+          <label>英語名</label>
+          <input type="text" name="englishName" required>
+        </div>
+
+        <div class="form-group">
+          <label>価格</label>
+          <input type="number" name="price" required>
+        </div>
+
+        <div class="checkbox-row">
+  <label>
+    <input type="checkbox" name="longLasting">
+    日持ち
+  </label>
+
+  <label>
+    <input type="checkbox" name="fragrant">
+    香り
+  </label>
+</div>
+
+        <button type="submit" class="primary-btn">
+          品種を登録
+        </button>
+
+      </form>
+
+    </section>
+
+  </main>
+
+</div>
+
+</body>
+</html>
