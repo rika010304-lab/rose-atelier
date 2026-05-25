@@ -1,6 +1,12 @@
 # Rose Atelier 🌹
 
 ### バラ注文・在庫管理アプリ
+```md id="4n8x4g"
+## 🌐 アプリURL
+
+https://rose-atelier.onrender.com
+```
+
 
 Spring Boot / MySQL / Python
 
