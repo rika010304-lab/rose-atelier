@@ -403,28 +403,24 @@ public String addWaste(
         @RequestParam int quantity
 ) {
 
-    List<Rose> roses = roseRepository.findAll();
+    Rose rose = roseRepository.findAll()
+            .stream()
+            .filter(r -> r.getVariety().equals(variety))
+            .findFirst()
+            .orElse(null);
 
-    for (Rose rose : roses) {
-
-        if (rose.getVariety().equals(variety)) {
-
-            int newQuantity =
-                    rose.getQuantity() - quantity;
-
-            if (newQuantity < 0) {
-                newQuantity = 0;
-            }
-
-            rose.addQuantity(
-                    newQuantity - rose.getQuantity()
-            );
-
-            roseRepository.save(rose);
-
-            break;
-        }
+    if (rose == null) {
+        return "redirect:/waste";
     }
+
+    int newQuantity = rose.getQuantity() - quantity;
+
+    if (newQuantity < 0) {
+        newQuantity = 0;
+    }
+
+    rose.addQuantity(newQuantity - rose.getQuantity());
+    roseRepository.save(rose);
 
     return "redirect:/admin";
 }
