@@ -256,7 +256,7 @@ public String addFlowerSubmit(
     return "redirect:/add-flower";
 }
 
-return "redirect:/";
+return "redirect:/admin";
 }
 @PostMapping("/flower/delete")
 public String deleteFlower(
@@ -265,7 +265,7 @@ public String deleteFlower(
 
     roseRepository.deleteById(id);
 
-    return "redirect:/";
+    return "redirect:/admin";
 }
 @GetMapping("/order")
 public String order(Model model) {
