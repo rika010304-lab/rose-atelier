@@ -281,6 +281,23 @@ public String order(Model model) {
 }
 @GetMapping("/welcome")
 public String welcome() {
+
+    List<Rose> roses = roseRepository.findAll();
+
+    if (!roses.isEmpty()) {
+
+        boolean allZero = roses.stream()
+                .allMatch(rose -> rose.getQuantity() == 0);
+
+        if (allZero) {
+            for (Rose rose : roses) {
+                rose.addQuantity(10);
+            }
+
+            roseRepository.saveAll(roses);
+        }
+    }
+
     return "welcome";
 }
 
