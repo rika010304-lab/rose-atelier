@@ -472,7 +472,7 @@ public String resetStock() {
     List<Rose> roses = roseRepository.findAll();
 
     for (Rose rose : roses) {
-        rose.setQuantity(10);
+        rose.addQuantity(10 - rose.getQuantity());
     }
 
     roseRepository.saveAll(roses);
