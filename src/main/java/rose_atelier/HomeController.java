@@ -479,6 +479,9 @@ public String resetStock() {
 
     return "redirect:/admin";
 }
-
+@GetMapping("/")
+public String root() {
+    return "redirect:/welcome";
+}
 }
 
