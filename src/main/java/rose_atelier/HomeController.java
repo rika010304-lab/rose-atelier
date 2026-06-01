@@ -528,5 +528,9 @@ private void prepareDemoData() {
         roseRepository.saveAll(roseList);
     }
 }
+@GetMapping("/order.html")
+public String oldOrderHtmlRedirect() {
+    return "redirect:/order";
+}
 }
 
