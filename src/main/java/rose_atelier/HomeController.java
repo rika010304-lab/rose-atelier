@@ -126,6 +126,8 @@ private List<Rose> roses = new ArrayList<>(List.of(
 @GetMapping("/admin")
 public String index(Model model) {
 
+    prepareDemoData();
+
     if (roseRepository.count() == 0) {
         roseRepository.saveAll(roses);
     }
@@ -154,6 +156,8 @@ public String index(Model model) {
 }
 @GetMapping("/stock")
 public String stock(Model model) {
+    prepareDemoData();
+
     List<Rose> roses = roseRepository.findAll();
 
     roses.sort(Comparator.comparingInt(
@@ -265,10 +269,12 @@ public String deleteFlower(
 
     roseRepository.deleteById(id);
 
-    return "redirect:/";
+   return "redirect:/admin";
 }
 @GetMapping("/order")
 public String order(Model model) {
+
+    prepareDemoData();
     List<Rose> roses = roseRepository.findAll();
 
     roses.sort(Comparator.comparingInt(
@@ -282,20 +288,22 @@ public String order(Model model) {
 @GetMapping("/welcome")
 public String welcome() {
 
-    List<Rose> roses = roseRepository.findAll();
+    prepareDemoData();
+    if (roseRepository.count() == 0) {
+        roseRepository.saveAll(roses);
+    }
 
-    if (!roses.isEmpty()) {
+    List<Rose> roseList = roseRepository.findAll();
 
-        boolean allZero = roses.stream()
-                .allMatch(rose -> rose.getQuantity() == 0);
+    boolean allZero = roseList.stream()
+            .allMatch(rose -> rose.getQuantity() == 0);
 
-        if (allZero) {
-            for (Rose rose : roses) {
-                rose.addQuantity(10);
-            }
-
-            roseRepository.saveAll(roses);
+    if (allZero) {
+        for (Rose rose : roseList) {
+            rose.addQuantity(10);
         }
+
+        roseRepository.saveAll(roseList);
     }
 
     return "welcome";
@@ -304,6 +312,7 @@ public String welcome() {
 @GetMapping("/waste")
 public String waste(Model model) {
 
+    prepareDemoData();
     List<Rose> roses = roseRepository.findAll();
 
     roses.sort(Comparator.comparingInt(
@@ -489,8 +498,8 @@ public String resetStock() {
     List<Rose> roses = roseRepository.findAll();
 
     for (Rose rose : roses) {
-        rose.addQuantity(10);
-    }
+    rose.setQuantity(10);
+}
 
     roseRepository.saveAll(roses);
 
@@ -499,6 +508,25 @@ public String resetStock() {
 @GetMapping("/")
 public String root() {
     return "redirect:/welcome";
+}
+private void prepareDemoData() {
+
+    if (roseRepository.count() == 0) {
+        roseRepository.saveAll(roses);
+    }
+
+    List<Rose> roseList = roseRepository.findAll();
+
+    boolean allZero = roseList.stream()
+            .allMatch(rose -> rose.getQuantity() == 0);
+
+    if (allZero) {
+        for (Rose rose : roseList) {
+            rose.addQuantity(10);
+        }
+
+        roseRepository.saveAll(roseList);
+    }
 }
 }
 
