@@ -428,7 +428,10 @@ public String addWaste(
         @RequestParam String variety,
         @RequestParam int quantity
 ) {
-
+@GetMapping("/analytics")
+public String analytics() {
+    return "analytics";
+}
     List<Rose> roses = roseRepository.findAll();
 
     for (Rose rose : roses) {
