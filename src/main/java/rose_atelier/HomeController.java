@@ -428,7 +428,10 @@ public String addWaste(
         @RequestParam String variety,
         @RequestParam int quantity
 ) {
-
+@GetMapping("/analytics")
+public String analytics() {
+    return "analytics";
+}
     List<Rose> roses = roseRepository.findAll();
 
     for (Rose rose : roses) {
@@ -452,14 +455,8 @@ public String addWaste(
         }
     }
 
-   return "redirect:/admin";
+    return "redirect:/admin";
 }
-
-@GetMapping("/analytics")
-public String analytics() {
-    return "analytics";
-}
-
 @GetMapping("/history")
 public String history(Model model) {
     List<OrderHistory> histories =
@@ -504,8 +501,8 @@ public String resetStock() {
     List<Rose> roses = roseRepository.findAll();
 
     for (Rose rose : roses) {
-        rose.addQuantity(10 - rose.getQuantity());
-    }
+    rose.setQuantity(10);
+}
 
     roseRepository.saveAll(roses);
 
