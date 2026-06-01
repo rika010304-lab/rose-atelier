@@ -265,7 +265,7 @@ public String deleteFlower(
 
     roseRepository.deleteById(id);
 
-    return "redirect:/admin";
+    return "redirect:/";
 }
 @GetMapping("/order")
 public String order(Model model) {
@@ -403,24 +403,28 @@ public String addWaste(
         @RequestParam int quantity
 ) {
 
-    Rose rose = roseRepository.findAll()
-            .stream()
-            .filter(r -> r.getVariety().equals(variety))
-            .findFirst()
-            .orElse(null);
+    List<Rose> roses = roseRepository.findAll();
 
-    if (rose == null) {
-        return "redirect:/waste";
+    for (Rose rose : roses) {
+
+        if (rose.getVariety().equals(variety)) {
+
+            int newQuantity =
+                    rose.getQuantity() - quantity;
+
+            if (newQuantity < 0) {
+                newQuantity = 0;
+            }
+
+            rose.addQuantity(
+                    newQuantity - rose.getQuantity()
+            );
+
+            roseRepository.save(rose);
+
+            break;
+        }
     }
-
-    int newQuantity = rose.getQuantity() - quantity;
-
-    if (newQuantity < 0) {
-        newQuantity = 0;
-    }
-
-    rose.addQuantity(newQuantity - rose.getQuantity());
-    roseRepository.save(rose);
 
     return "redirect:/admin";
 }
@@ -461,17 +465,20 @@ public void downloadHistoryCsv(HttpServletResponse response) throws Exception {
 
     writer.flush();
 }
+
 @GetMapping("/reset-stock")
 public String resetStock() {
 
     List<Rose> roses = roseRepository.findAll();
 
     for (Rose rose : roses) {
-        rose.addQuantity(10 - rose.getQuantity());
-        roseRepository.save(rose);
+        rose.setQuantity(10);
     }
+
+    roseRepository.saveAll(roses);
 
     return "redirect:/admin";
 }
 
 }
+
