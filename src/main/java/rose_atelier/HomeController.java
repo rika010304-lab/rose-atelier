@@ -461,5 +461,17 @@ public void downloadHistoryCsv(HttpServletResponse response) throws Exception {
 
     writer.flush();
 }
+@GetMapping("/reset-stock")
+public String resetStock() {
+
+    List<Rose> roses = roseRepository.findAll();
+
+    for (Rose rose : roses) {
+        rose.addQuantity(10 - rose.getQuantity());
+        roseRepository.save(rose);
+    }
+
+    return "redirect:/admin";
+}
 
 }
