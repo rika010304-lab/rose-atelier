@@ -287,28 +287,8 @@ public String order(Model model) {
 }
 @GetMapping("/welcome")
 public String welcome() {
-
-    prepareDemoData();
-    if (roseRepository.count() == 0) {
-        roseRepository.saveAll(roses);
-    }
-
-    List<Rose> roseList = roseRepository.findAll();
-
-    boolean allZero = roseList.stream()
-            .allMatch(rose -> rose.getQuantity() == 0);
-
-    if (allZero) {
-        for (Rose rose : roseList) {
-            rose.addQuantity(10);
-        }
-
-        roseRepository.saveAll(roseList);
-    }
-
     return "welcome";
 }
-
 @GetMapping("/waste")
 public String waste(Model model) {
 
@@ -512,25 +492,25 @@ public String resetStock() {
 public String root() {
     return "redirect:/welcome";
 }
-private void prepareDemoData() {
+// private void prepareDemoData() {
 
-    if (roseRepository.count() == 0) {
-        roseRepository.saveAll(roses);
-    }
+//     if (roseRepository.count() == 0) {
+//         roseRepository.saveAll(roses);
+//     }
 
-    List<Rose> roseList = roseRepository.findAll();
+//     List<Rose> roseList = roseRepository.findAll();
 
-    boolean allZero = roseList.stream()
-            .allMatch(rose -> rose.getQuantity() == 0);
+//     boolean allZero = roseList.stream()
+//             .allMatch(rose -> rose.getQuantity() == 0);
 
-    if (allZero) {
-        for (Rose rose : roseList) {
-            rose.addQuantity(10);
-        }
+//     if (allZero) {
+//         for (Rose rose : roseList) {
+//             rose.addQuantity(10);
+//         }
 
-        roseRepository.saveAll(roseList);
-    }
-}
+//         roseRepository.saveAll(roseList);
+//     }
+// }
 @GetMapping("/order.html")
 public String oldOrderHtmlRedirect() {
     return "redirect:/order";
