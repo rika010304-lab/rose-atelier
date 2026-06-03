@@ -115,4 +115,7 @@ public class Rose {
     public Long getId() {
     return id;
 }
+public void setQuantity(int quantity) {
+    this.quantity = quantity;
+}
 }
