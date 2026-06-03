@@ -126,7 +126,7 @@ private List<Rose> roses = new ArrayList<>(List.of(
 @GetMapping("/admin")
 public String index(Model model) {
 
-    prepareDemoData();
+  
 
     if (roseRepository.count() == 0) {
         roseRepository.saveAll(roses);
@@ -156,7 +156,7 @@ public String index(Model model) {
 }
 @GetMapping("/stock")
 public String stock(Model model) {
-    prepareDemoData();
+
 
     List<Rose> roses = roseRepository.findAll();
 
@@ -274,7 +274,6 @@ public String deleteFlower(
 @GetMapping("/order")
 public String order(Model model) {
 
-    prepareDemoData();
     List<Rose> roses = roseRepository.findAll();
 
     roses.sort(Comparator.comparingInt(
@@ -292,7 +291,6 @@ public String welcome() {
 @GetMapping("/waste")
 public String waste(Model model) {
 
-    prepareDemoData();
     List<Rose> roses = roseRepository.findAll();
 
     roses.sort(Comparator.comparingInt(
@@ -408,10 +406,7 @@ public String addWaste(
         @RequestParam String variety,
         @RequestParam int quantity
 ) {
-@GetMapping("/analytics")
-public String analytics() {
-    return "analytics";
-}
+
     List<Rose> roses = roseRepository.findAll();
 
     for (Rose rose : roses) {
@@ -436,6 +431,11 @@ public String analytics() {
     }
 
     return "redirect:/admin";
+}
+
+@GetMapping("/analytics")
+public String analytics() {
+    return "analytics";
 }
 @GetMapping("/history")
 public String history(Model model) {
