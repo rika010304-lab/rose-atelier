@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>売上分析</title>
+</head>
+<body>
+
+<h2>売上分析</h2>
+
+<div class="analytics-card">
+    <h3>総注文件数</h3>
+    <p th:text="${totalOrders}">0</p>
+</div>
+
+<div class="analytics-card">
+    <h3>総売上</h3>
+    <p th:text="${totalSales}">0</p>
+</div>
+
+</body>
+</html>

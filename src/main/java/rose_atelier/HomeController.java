@@ -434,7 +434,23 @@ public String addWaste(
 }
 
 @GetMapping("/analytics")
-public String analytics() {
+public String analytics(Model model) {
+
+    List<OrderHistory> histories =
+            orderHistoryRepository.findAll();
+
+    int totalSales = histories.stream()
+            .mapToInt(OrderHistory::getTotalPrice)
+            .sum();
+
+    model.addAttribute(
+            "totalOrders",
+            histories.size());
+
+    model.addAttribute(
+            "totalSales",
+            totalSales);
+
     return "analytics";
 }
 @GetMapping("/history")
