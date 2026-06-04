@@ -440,7 +440,7 @@ public String analytics(Model model) {
             orderHistoryRepository.findAll();
 
     int totalSales = histories.stream()
-            .mapToInt(OrderHistory::getTotalPrice)
+            .mapToInt(OrderHistory::getSubtotal)
             .sum();
 
     model.addAttribute(
