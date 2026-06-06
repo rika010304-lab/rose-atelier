@@ -443,13 +443,14 @@ public String analytics(Model model) {
             .mapToInt(OrderHistory::getSubtotal)
             .sum();
 
-    model.addAttribute(
-            "totalOrders",
-            histories.size());
+    int totalQuantity = histories.stream()
+            .mapToInt(OrderHistory::getQuantity)
+            .sum();
 
-    model.addAttribute(
-            "totalSales",
-            totalSales);
+    model.addAttribute("histories", histories);
+    model.addAttribute("totalOrders", histories.size());
+    model.addAttribute("totalSales", totalSales);
+    model.addAttribute("totalQuantity", totalQuantity);
 
     return "analytics";
 }

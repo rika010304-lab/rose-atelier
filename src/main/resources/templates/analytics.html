@@ -17,5 +17,26 @@
     <p th:text="${totalSales}">0</p>
 </div>
 
+<div class="analytics-card">
+    <h3>総販売本数</h3>
+    <p th:text="${totalQuantity}">0</p>
+</div>
+
+<h3>注文履歴</h3>
+
+<table border="1">
+    <tr>
+        <th>品種</th>
+        <th>本数</th>
+        <th>金額</th>
+    </tr>
+
+    <tr th:each="history : ${histories}">
+        <td th:text="${history.variety}"></td>
+        <td th:text="${history.quantity}"></td>
+        <td th:text="${history.subtotal}"></td>
+    </tr>
+</table>
+
 </body>
 </html>
