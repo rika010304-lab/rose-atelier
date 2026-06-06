@@ -1806,11 +1806,19 @@ tbody tr:hover {
     text-align:center;
 }
 .analytics-card span{
+    width:120px;
+
     font-size:16px;
+    font-weight:600;
+
     color:#666;
 }
 
 .analytics-card strong{
+    flex:1;
+
+    text-align:right;
+
     font-size:28px;
     font-weight:700;
 }

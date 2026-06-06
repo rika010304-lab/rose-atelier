@@ -60,12 +60,14 @@
         <th>金額</th>
     </tr>
 
-    <tr th:each="history : ${histories}">
+<tr th:each="history : ${histories}">
+    <td th:text="${#temporals.format(history.orderedAt,'yyyy/MM/dd HH:mm')}"></td>
+
     <td class="left-cell"
         th:text="${history.variety}"></td>
 
     <td class="number-cell"
-        th:text="${history.quantity}"></td>
+        th:text="${history.quantity} + '本'"></td>
 
     <td class="number-cell"
         th:text="${history.subtotal} + '円'"></td>
