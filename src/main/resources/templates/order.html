@@ -41,7 +41,11 @@
         </div>
         <a href="cart" class="cart-link">
           <span>🛒 カート</span>
-          <span class="cart-count-badge" id="headerCartCount">0</span>
+         <span class="cart-count-badge"
+      id="headerCartCount"
+      th:text="${cartCount}">
+  0
+</span>
         </a>
         
       </header>
@@ -121,6 +125,6 @@
     </main>
   </div>
 
-  
+  <script src="/js/app.js"></script>
 </body>
 </html>
