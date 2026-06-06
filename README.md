@@ -37,6 +37,9 @@ https://rose-atelier.onrender.com
 - HTML
 - CSS
 - JavaScript
+  - 在庫一覧の品種検索
+  - 注文画面の色別フィルター
+  - 廃棄データのCSV出力
 
 ### Analysis
 
@@ -123,6 +126,9 @@ https://rose-atelier.onrender.com
 - PostgreSQLを使用し、在庫数や注文履歴を永続保存
 - 写真・色・香り・日持ちなど、花屋らしい情報をUIに反映
 - Pythonで注文履歴CSVを分析し、販売傾向を可視化
+- - JavaScriptで在庫一覧の検索機能を実装
+- 注文画面では色別フィルターにより、目的のバラを探しやすく設計
+- 廃棄登録画面では入力内容をCSVとして出力可能
 
 ---
 
