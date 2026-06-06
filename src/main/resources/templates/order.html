@@ -3,124 +3,126 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>注斁E��録 | バラ注斁E��プリ</title>
+  <title>注文登録 | バラ注文アプリ</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <div class="app-layout">
 
-<aside class="sidebar">
-  <div class="logo-area">
-    <p class="logo-sub">Rose Order App</p>
-    <h1>バラ注斁E��プリ</h1>
-  </div>
+    <aside class="sidebar">
+      <div class="logo-area">
+        <p class="logo-sub">Rose Order App</p>
+        <h1>バラ注文アプリ</h1>
+      </div>
 
-  <nav class="side-nav">
-    <a href="/admin">在庫一覧</a>
-      <a href="/add-flower">品種登録</a>
-      <a href="/stock">在庫登録</a>
-      <a href="/order">注斁E��録</a>
-      <a href="/waste">廁E��E��録</a>
-      <a href="/history">注斁E��歴</a>
-      <a href="/analytics" class="active">売上�E极E/a>
+      <nav class="side-nav">
+        <a href="/admin">在庫一覧</a>
+        <a href="/add-flower">品種登録</a>
+        <a href="/stock">在庫登録</a>
+        <a href="/order" class="active">注文登録</a>
+        <a href="/waste">廃棄登録</a>
+        <a href="/history">注文履歴</a>
+        <a href="/analytics">売上分析</a>
 
-    <div class="nav-divider"></div>
+        <div class="nav-divider"></div>
 
-    <a href="/welcome" class="back-home">
-      ↁEウェルカムへ戻めE
-    </a>
-  </nav>
-</aside>
-
+        <a href="/welcome" class="back-home">
+          ← ウェルカムへ戻る
+        </a>
+      </nav>
+    </aside>
 
     <main class="main-content">
       <header class="page-header cart-header">
         <div>
           <p class="page-label">Order</p>
-          <h2>バラを選んで注斁E��めE/h2>
+          <h2>バラを選んで注文する</h2>
         </div>
-        <a href="cart" class="cart-link">
-          <span>🛒 カーチE/span>
-         <span class="cart-count-badge"
-      id="headerCartCount"
-      th:text="${cartCount != null ? cartCount : 0}">
-  0
-</span>
+
+        <a href="/cart" class="cart-link">
+          <span>カート</span>
+          <span class="cart-count-badge"
+                id="headerCartCount"
+                th:text="${cartCount != null ? cartCount : 0}">
+            0
+          </span>
         </a>
-        
       </header>
 
       <section class="content-card">
         <div class="section-head single">
           <div>
             <h3>品種を選ぶ</h3>
-            <p>写真を見ながら好きなバラをカートに追加できまぁE/p>
+            <p>写真を見ながら好きなバラをカートに追加できます</p>
           </div>
         </div>
 
         <div class="catalog-filter" id="filterButtons">
           <button class="chip active" type="button" data-filter="all">すべて</button>
           <button class="chip" type="button" data-filter="ピンク">ピンク</button>
-          <button class="chip" type="button" data-filter="レチE��">レチE��</button>
+          <button class="chip" type="button" data-filter="レッド">レッド</button>
           <button class="chip" type="button" data-filter="イエロー">イエロー</button>
-          <button class="chip" type="button" data-filter="ホワイチE>ホワイチE/button>
+          <button class="chip" type="button" data-filter="ホワイト">ホワイト</button>
           <button class="chip" type="button" data-filter="グリーン">グリーン</button>
           <button class="chip" type="button" data-filter="オレンジ">オレンジ</button>
-          <button class="chip" type="button" data-filter="そ�E仁E>そ�E仁E/button>
+          <button class="chip" type="button" data-filter="その他">その他</button>
         </div>
 
         <div class="flower-grid">
+          <article class="flower-card"
+                   th:each="rose : ${roses}"
+                   th:attr="data-color=${rose.color}">
 
-  <article class="flower-card"
-           th:each="rose : ${roses}"
-           th:attr="data-color=${rose.color}">
+            <div class="flower-image-wrap">
+              <img th:src="${rose.imagePath}"
+                   th:alt="${rose.variety}"
+                   class="flower-image">
 
-    <div class="flower-image-wrap">
-      <img th:src="${rose.imagePath}"
-           th:alt="${rose.variety}"
-           class="flower-image">
+              <div class="feature-tag-group image-feature-tags">
+                <span th:if="${rose.longLasting}" class="feature-tag long">日持ち</span>
+                <span th:if="${rose.fragrant}" class="feature-tag aroma">香り</span>
+                <span th:if="${rose.quantity == 0}" class="feature-tag soldout">売り切れ</span>
+              </div>
+            </div>
 
-      <div class="feature-tag-group image-feature-tags">
-        <span th:if="${rose.longLasting}" class="feature-tag long">日持ち</span>
-        <span th:if="${rose.fragrant}" class="feature-tag aroma">香り</span>
-        <span th:if="${rose.quantity == 0}" class="feature-tag soldout">売り�EめE/span>
-      </div>
-    </div>
+            <div class="flower-card-body">
+              <div class="tag-group">
+                <span class="tag">バラ</span>
+                <span class="soft-color-tag" th:text="${rose.color}">色</span>
+              </div>
 
-    <div class="flower-card-body">
-      <div class="tag-group">
-        <span class="tag">バラ</span>
-        <span class="soft-color-tag" th:text="${rose.color}">色</span>
-      </div>
+              <h3 class="flower-name" th:text="${rose.variety}">品種名</h3>
+              <p class="flower-en-name" th:text="${rose.englishName}">English</p>
+              <p class="flower-price" th:text="${rose.price + '円 / 1本'}">価格</p>
 
-      <h3 class="flower-name" th:text="${rose.variety}">品種吁E/h3>
-      <p class="flower-en-name" th:text="${rose.englishName}">English</p>
-      <p class="flower-price" th:text="${rose.price + '冁E/ 1本'}">価格</p>
+              <form action="/cart/add" method="post" class="card-order-row">
+                <input type="hidden" name="id" th:value="${rose.id}">
 
-      <form action="/cart/add" method="post" class="card-order-row">
-        <input type="hidden" name="id" th:value="${rose.id}">
+                <select name="quantity"
+                        class="qty-select"
+                        th:disabled="${rose.quantity == 0}">
+                  <option th:if="${rose.quantity == 0}"
+                          value="0">
+                    0本
+                  </option>
+                  <option th:if="${rose.quantity > 0}"
+                          th:each="num : ${#numbers.sequence(1, rose.quantity)}"
+                          th:value="${num}"
+                          th:text="${num + '本'}">
+                    1本
+                  </option>
+                </select>
 
-        <select name="quantity"
-                class="qty-select"
-                th:disabled="${rose.quantity == 0}">
-          <option value="1">1本</option>
-          <option value="2">2本</option>
-          <option value="3">3本</option>
-          <option value="5">5本</option>
-          <option value="10">10本</option>
-        </select>
-
-        <button type="submit"
-                class="primary-btn card-btn"
-                th:disabled="${rose.quantity == 0}"
-                th:text="${rose.quantity == 0} ? '売り�EめE : 'カートに追加'">
-          カートに追加
-        </button>
-      </form>
-    </div>
-  </article>
-
-</div>
+                <button type="submit"
+                        class="primary-btn card-btn"
+                        th:disabled="${rose.quantity == 0}"
+                        th:text="${rose.quantity == 0} ? '売り切れ' : 'カートに追加'">
+                  カートに追加
+                </button>
+              </form>
+            </div>
+          </article>
+        </div>
       </section>
     </main>
   </div>
