@@ -19,10 +19,12 @@
 
   <nav class="side-nav">
     <a href="/admin">在庫一覧</a>
-    <a href="/add-flower">品種登録</a>
-    <a href="/stock">在庫登録</a>
-    <a href="/order">注文登録</a>
-    <a href="/waste">廃棄登録</a>
+      <a href="/add-flower">品種登録</a>
+      <a href="/stock">在庫登録</a>
+      <a href="/order">注文登録</a>
+      <a href="/waste">廃棄登録</a>
+      <a href="/history">注文履歴</a>
+      <a href="/analytics" class="active">売上分析</a>
 
     <div class="nav-divider"></div>
 
@@ -48,11 +50,11 @@
 
   <div class="form-group">
     <label>品種名</label>
-    <select name="variety" required>
+    <select name="id" required>
   <option value="">品種を選択してください</option>
-  <option th:each="rose : ${roses}"
-          th:value="${rose.variety}"
-          th:text="${rose.variety}">
+ <option th:each="rose : ${roses}"
+        th:value="${rose.id}"
+        th:text="${rose.variety}">
     品種名
   </option>
 </select>
