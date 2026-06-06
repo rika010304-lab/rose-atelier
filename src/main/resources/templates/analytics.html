@@ -36,7 +36,7 @@
 
 </div>
 
-<h3>人気品種ランキング TOP5</h3>
+<h3 class="analytics-title">人気品種ランキング TOP5</h3>
 
 <table class="analytics-table">
     <tr>
@@ -50,10 +50,11 @@
     </tr>
 </table>
 
-<h3>注文履歴</h3>
+<h3 class="analytics-title">注文履歴</h3>
 
 <table class="analytics-table">
     <tr>
+        <th>日時</th>
         <th>品種</th>
         <th>本数</th>
         <th>金額</th>
@@ -63,6 +64,7 @@
         <td th:text="${history.variety}"></td>
         <td th:text="${history.quantity}"></td>
         <td th:text="${history.subtotal}"></td>
+        <td th:text="${#temporals.format(history.orderedAt,'yyyy/MM/dd HH:mm')}"></td>
     </tr>
 </table>
 
