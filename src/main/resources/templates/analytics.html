@@ -1,80 +1,119 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>売上分析 | バラ注文アプリ</title>
   <link rel="stylesheet" href="/css/style.css">
-    <title>売上分析</title>
 </head>
 <body>
 
 <div class="app-layout">
 
-<main class="main-content">
+  <aside class="sidebar">
+    <div class="logo-area">
+      <p class="logo-sub">Rose Order App</p>
+      <h1>バラ注文アプリ</h1>
+    </div>
 
-<header class="page-header">
-    <div>
+    <nav class="side-nav">
+      <a href="/admin">在庫一覧</a>
+      <a href="/add-flower">品種登録</a>
+      <a href="/stock">在庫登録</a>
+      <a href="/order">注文登録</a>
+      <a href="/waste">廃棄登録</a>
+      <a href="/history">注文履歴</a>
+      <a href="/analytics" class="active">売上分析</a>
+
+      <div class="nav-divider"></div>
+
+      <a href="/welcome" class="back-home">← ウェルカムへ戻る</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+
+    <header class="page-header">
+      <div>
         <p class="page-label">Analytics</p>
         <h2>売上分析</h2>
-    </div>
-</header>
+      </div>
+    </header>
 
-<div class="analytics-grid">
+    <section class="summary-grid">
+      <article class="summary-card">
+        <p class="summary-title">総注文件数</p>
+        <p class="summary-value" th:text="${totalOrders}">0</p>
+      </article>
 
-    <div class="analytics-card">
-    <span>総注文件数</span>
-    <strong th:text="${totalOrders} + '件'">0件</strong>
-</div>
+      <article class="summary-card">
+        <p class="summary-title">総売上</p>
+        <p class="summary-value" th:text="${totalSales + '円'}">0円</p>
+      </article>
 
-<div class="analytics-card">
-    <span>総売上</span>
-    <strong th:text="${totalSales} + '円'">0円</strong>
-</div>
+      <article class="summary-card">
+        <p class="summary-title">総販売本数</p>
+        <p class="summary-value" th:text="${totalQuantity + '本'}">0本</p>
+      </article>
+    </section>
 
-<div class="analytics-card">
-    <span>総販売本数</span>
-    <strong th:text="${totalQuantity} + '本'">0本</strong>
-</div>
+    <section class="content-card">
+      <div class="section-head single">
+        <div>
+          <h3>人気品種ランキング TOP5</h3>
+          <p>注文履歴をもとに販売本数の多い品種を表示します</p>
+        </div>
+      </div>
 
-</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>品種</th>
+              <th>販売本数</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="item : ${ranking}">
+              <td th:text="${item.key}">品種名</td>
+              <td th:text="${item.value + '本'}">0本</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-<h3 class="analytics-title">人気品種ランキング TOP5</h3>
+    <section class="content-card analytics-history-card">
+      <div class="section-head single">
+        <div>
+          <h3>注文履歴</h3>
+          <p>売上分析に使用している注文データです</p>
+        </div>
+      </div>
 
-<table class="analytics-table">
-   <tr>
-    <th>品種</th>
-    <th>販売本数</th>
-</tr>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>日時</th>
+              <th>品種</th>
+              <th>本数</th>
+              <th>金額</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="history : ${histories}">
+              <td th:text="${#temporals.format(history.orderedAt,'yyyy/MM/dd HH:mm')}">日時</td>
+              <td th:text="${history.variety}">品種</td>
+              <td th:text="${history.quantity + '本'}">0本</td>
+              <td th:text="${history.subtotal + '円'}">0円</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-<tr th:each="item : ${ranking}">
-    <td class="left-cell" th:text="${item.key}"></td>
-    <td class="number-cell" th:text="${item.value} + '本'"></td>
-</tr>
-</table>
-
-<h3 class="analytics-title">注文履歴</h3>
-
-<table class="analytics-table">
-    <tr>
-        <th>日時</th>
-        <th>品種</th>
-        <th>本数</th>
-        <th>金額</th>
-    </tr>
-
-<tr th:each="history : ${histories}">
-    <td th:text="${#temporals.format(history.orderedAt,'yyyy/MM/dd HH:mm')}"></td>
-
-    <td class="left-cell"
-        th:text="${history.variety}"></td>
-
-    <td class="number-cell"
-        th:text="${history.quantity} + '本'"></td>
-
-    <td class="number-cell"
-        th:text="${history.subtotal} + '円'"></td>
-</tr>
-</table>
-
-</main>
+  </main>
 </div>
 
 </body>
