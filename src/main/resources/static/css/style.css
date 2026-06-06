@@ -570,8 +570,8 @@ tbody tr:hover {
   height: 28px;
   padding: 0 8px;
   border-radius: 999px;
-  background: var(--accent);
-  color: #fff;
+  background: #2f2723;
+  color: #ffffff;
   display: inline-flex;
   align-items: center;
   justify-content: center;
