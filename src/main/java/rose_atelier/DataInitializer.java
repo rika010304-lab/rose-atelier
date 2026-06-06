@@ -23,8 +23,10 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) {
         System.out.println("=== DataInitializer started ===");
 
-        orderHistoryRepository.deleteAll();
-        roseRepository.deleteAll();
+        if (roseRepository.count() > 0) {
+    System.out.println("=== Existing rose data found. Skip initialization. ===");
+    return;
+}
 
         List<Rose> initialRoses = List.of(
                 new Rose("ピンク", "rose-pink", "Aries", "アリエス", "Aries", 520, 10, true, false, "在庫あり"),
