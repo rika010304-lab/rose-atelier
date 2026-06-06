@@ -15,12 +15,15 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) {
-        System.out.println("=== DataInitializer started ===");
+public void run(String... args) {
+    System.out.println("=== DataInitializer started ===");
 
-        roseRepository.deleteAll();
+    if (roseRepository.count() > 0) {
+        System.out.println("=== Existing rose data found. Skip initialization. ===");
+        return;
+    }
 
-        List<Rose> initialRoses = List.of(
+    List<Rose> initialRoses = List.of(
                 new Rose("ピンク", "rose-pink", "haruka", "はるか", "haruka", 680, 10, false, true, "在庫あり"),
                 new Rose("ホワイト", "rose-white", "avalanche", "アバランチェ", "avalanche", 700, 10, true, false, "在庫あり"),
                 new Rose("グリーン", "rose-green", "supergreen", "スーパーグリーン", "supergreen", 520, 10, false, false, "在庫あり"),
