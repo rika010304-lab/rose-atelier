@@ -15,12 +15,11 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) {
-        if (roseRepository.count() > 0) {
-            return;
-        }
+public void run(String... args) {
+    roseRepository.deleteAll();
 
-        List<Rose> initialRoses = List.of(
+    List<Rose> initialRoses = List.of(
+
                 new Rose("ピンク", "rose-pink", "Aries", "アリエス", "Aries", 520, 10, true, false, "在庫あり"),
                 new Rose("ピンク", "rose-pink", "Avenir", "アヴニール", "Avenir", 470, 10, false, false, "在庫あり"),
                 new Rose("ピンク", "rose-pink", "Blossom Pink", "ブロッサムピンク", "Blossom Pink", 450, 10, false, false, "在庫あり"),
@@ -94,6 +93,7 @@ public class DataInitializer implements CommandLineRunner {
                 new Rose("その他", "rose-other", "Lilacclassic", "ライラッククラシック", "Lilac classic", 640, 10, true, false, "在庫あり"),
                 new Rose("その他", "rose-other", "crazytoo", "クレイジートゥー", "crazy too", 690, 10, false, true, "在庫あり")
         );
+    
 
         roseRepository.saveAll(initialRoses);
     }
