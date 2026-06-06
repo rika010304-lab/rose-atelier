@@ -1681,18 +1681,20 @@ tbody tr:hover {
 }
 /* analytics */
 .analytics-grid{
-    display:flex;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
     gap:20px;
     margin-bottom:30px;
-    flex-wrap:wrap;
 }
 
 .analytics-card{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
     background:#fff;
+    padding:20px 24px;
     border-radius:16px;
-    padding:20px;
-    min-width:220px;
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
+    box-shadow:0 4px 12px rgba(0,0,0,.05);
 }
 
 .analytics-card h3{
@@ -1785,4 +1787,30 @@ tbody tr:hover {
     font-size:32px;
     font-weight:700;
     margin-top:10px;
+}
+.left-cell{
+    text-align:left !important;
+    padding-left:24px !important;
+}
+
+.number-cell{
+    text-align:center !important;
+    width:140px;
+}
+.analytics-table th:first-child{
+    text-align:left;
+    padding-left:24px;
+}
+
+.analytics-table th:not(:first-child){
+    text-align:center;
+}
+.analytics-card span{
+    font-size:16px;
+    color:#666;
+}
+
+.analytics-card strong{
+    font-size:28px;
+    font-weight:700;
 }

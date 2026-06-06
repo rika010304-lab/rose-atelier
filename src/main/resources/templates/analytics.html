@@ -20,34 +20,34 @@
 <div class="analytics-grid">
 
     <div class="analytics-card">
-        <h3>総注文件数</h3>
-        <p th:text="${totalOrders}">0</p>
-    </div>
+    <span>総注文件数</span>
+    <strong th:text="${totalOrders} + '件'">0件</strong>
+</div>
 
-    <div class="analytics-card">
-        <h3>総売上</h3>
-        <p th:text="${totalSales} + ' 円'">0</p>
-    </div>
+<div class="analytics-card">
+    <span>総売上</span>
+    <strong th:text="${totalSales} + '円'">0円</strong>
+</div>
 
-    <div class="analytics-card">
-        <h3>総販売本数</h3>
-        <p th:text="${totalQuantity} + ' 本'">0</p>
-    </div>
+<div class="analytics-card">
+    <span>総販売本数</span>
+    <strong th:text="${totalQuantity} + '本'">0本</strong>
+</div>
 
 </div>
 
 <h3 class="analytics-title">人気品種ランキング TOP5</h3>
 
 <table class="analytics-table">
-    <tr>
-        <th>品種</th>
-        <th>販売本数</th>
-    </tr>
+   <tr>
+    <th>品種</th>
+    <th>販売本数</th>
+</tr>
 
-    <tr th:each="item : ${ranking}">
-        <td th:text="${item.key}"></td>
-        <td th:text="${item.value} + '本'"></td>
-    </tr>
+<tr th:each="item : ${ranking}">
+    <td class="left-cell" th:text="${item.key}"></td>
+    <td class="number-cell" th:text="${item.value} + '本'"></td>
+</tr>
 </table>
 
 <h3 class="analytics-title">注文履歴</h3>
@@ -61,11 +61,15 @@
     </tr>
 
     <tr th:each="history : ${histories}">
-        <td th:text="${history.variety}"></td>
-        <td th:text="${history.quantity}"></td>
-        <td th:text="${history.subtotal}"></td>
-        <td th:text="${#temporals.format(history.orderedAt,'yyyy/MM/dd HH:mm')}"></td>
-    </tr>
+    <td class="left-cell"
+        th:text="${history.variety}"></td>
+
+    <td class="number-cell"
+        th:text="${history.quantity}"></td>
+
+    <td class="number-cell"
+        th:text="${history.subtotal} + '円'"></td>
+</tr>
 </table>
 
 </main>
