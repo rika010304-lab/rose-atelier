@@ -111,9 +111,6 @@ https://rose-atelier.onrender.com
 - pandas
 - matplotlib
 
-### 出力例
-
-![Rose Sales Ranking](rose_sales_ranking.png)
 ---
 
 ## 制作背景
