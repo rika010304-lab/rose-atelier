@@ -1,5 +1,8 @@
 package rose_atelier;
 
+import java.util.Map;
+import java.util.LinkedHashMap;
+import java.util.stream.Collectors;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +18,8 @@ import java.nio.file.StandardCopyOption;
 import java.util.Comparator;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
-
 import java.util.List;
+
 
 @Controller
 public class HomeController {
@@ -447,10 +450,27 @@ public String analytics(Model model) {
             .mapToInt(OrderHistory::getQuantity)
             .sum();
 
+    Map<String, Integer> ranking = histories.stream()
+            .collect(Collectors.groupingBy(
+                    OrderHistory::getVariety,
+                    Collectors.summingInt(
+                            OrderHistory::getQuantity)))
+            .entrySet()
+            .stream()
+            .sorted(Map.Entry.<String,Integer>comparingByValue()
+                    .reversed())
+            .limit(5)
+            .collect(Collectors.toMap(
+                    Map.Entry::getKey,
+                    Map.Entry::getValue,
+                    (a,b)->a,
+                    LinkedHashMap::new));
+
     model.addAttribute("histories", histories);
     model.addAttribute("totalOrders", histories.size());
     model.addAttribute("totalSales", totalSales);
     model.addAttribute("totalQuantity", totalQuantity);
+    model.addAttribute("ranking", ranking);
 
     return "analytics";
 }
