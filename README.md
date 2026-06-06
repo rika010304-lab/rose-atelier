@@ -92,15 +92,26 @@ https://rose-atelier.onrender.com
 - 人気品種ランキングTOP5
 - 注文履歴の一覧表示
 
-### Python分析
+## Python分析
 
-注文履歴CSVをもとに、Pythonで品種別販売本数を集計し、ランキンググラフを出力します。
+注文履歴CSVをもとに、Pythonで品種別販売本数を集計し、ランキンググラフを作成しています。
 
-- CSV読み込み
-- 品種別販売本数集計
-- 棒グラフ作成
-- `rose_sales_ranking.png` の出力
+### 分析の流れ
 
+1. アプリの注文履歴からCSVを出力
+2. `sales_analysis.py` でCSVを読み込み
+3. pandasで品種別販売本数を集計
+4. matplotlibで棒グラフを作成
+5. `rose_sales_ranking.png` として保存
+
+### 使用ライブラリ
+
+- pandas
+- matplotlib
+
+### 出力例
+
+![Rose Sales Ranking](rose_sales_ranking.png)
 ---
 
 ## 制作背景
