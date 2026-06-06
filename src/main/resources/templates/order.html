@@ -43,7 +43,7 @@
           <span>🛒 カート</span>
          <span class="cart-count-badge"
       id="headerCartCount"
-      th:text="${cartCount}">
+      th:text="${cartCount != null ? cartCount : 0}">
   0
 </span>
         </a>
