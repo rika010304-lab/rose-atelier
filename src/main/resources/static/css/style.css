@@ -1,6 +1,6 @@
 /* =========================================================
    01. Design Tokens
-   色・影・角丸など、アプリ全体で使う共通変数
+   色・影・角丸などの共通変数
 ========================================================= */
 :root {
   --bg: #f8f6f2;
@@ -24,8 +24,8 @@
 }
 
 /* =========================================================
-   02. Base / Reset
-   全ページ共通の基本設定
+   02. Base
+   全体設定・リセット・フォント
 ========================================================= */
 html {
   scroll-behavior: smooth;
@@ -74,8 +74,8 @@ h4,
 }
 
 /* =========================================================
-   03. App Layout / Sidebar
-   管理画面系ページの2カラムレイアウトと左サイドバー
+   03. Layout / Sidebar
+   管理画面共通レイアウト・サイドバー
 ========================================================= */
 .app-layout {
   display: grid;
@@ -129,29 +129,40 @@ h4,
   box-shadow: var(--shadow);
 }
 
-/* サイドバー内：ウェルカムページへ戻るリンク */
+.nav-divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.08);
+  margin: 14px 0;
+}
+
+.back-home,
+.side-nav .back-home {
+  color: var(--subtext);
+  font-size: 13px;
+  transition: 0.2s ease;
+}
+
 .side-nav .back-home {
   margin-bottom: 18px;
   padding-bottom: 16px;
-  color: var(--subtext);
-  font-size: 13px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
+.back-home:hover,
 .side-nav .back-home:hover {
   color: var(--accent-dark);
   background: rgba(255, 255, 255, 0.5);
   transform: translateX(-2px);
 }
 
-/* =========================================================
-   04. Page Layout / Header / Content Card
-   各ページ共通のメイン領域・見出し・カード
-========================================================= */
 .main-content {
   padding: 30px;
 }
 
+/* =========================================================
+   04. Page Header / Cards
+   ページ見出し・カード・セクション見出し
+========================================================= */
 .page-header {
   display: flex;
   justify-content: space-between;
@@ -205,7 +216,6 @@ h4,
   border: 1px solid rgba(0, 0, 0, 0.035);
 }
 
-/* 旧ヘッダー内Welcomeリンク用。今後使わない場合は削除OK */
 .back-welcome-link {
   display: inline-block;
   margin-bottom: 8px;
@@ -221,7 +231,7 @@ h4,
 
 /* =========================================================
    05. Buttons
-   全ページ共通の主要ボタン・サブボタン・テーブル用ボタン
+   共通ボタン
 ========================================================= */
 .primary-btn,
 .secondary-btn,
@@ -277,9 +287,30 @@ h4,
   margin-top: 20px;
 }
 
+.delete-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 10px;
+  background: #2b2b2b;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.delete-btn:hover {
+  background: #000;
+}
+
+.card-btn:disabled,
+.qty-select:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 /* =========================================================
    06. Forms
-   品種登録・廃棄登録・在庫登録などのフォーム共通
+   入力欄・セレクト・チェックボックス
 ========================================================= */
 .search-box,
 input,
@@ -353,9 +384,45 @@ label {
   margin-bottom: 0;
 }
 
+.stock-form .checkbox-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+.stock-form .checkbox-row label {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  min-width: 80px;
+  white-space: nowrap;
+  writing-mode: horizontal-tb;
+}
+
+.stock-form .checkbox-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+.success-message {
+  background: #f0f9f4;
+  color: #2f7d4f;
+  border: 1px solid #bfe8cf;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
 /* =========================================================
    07. Summary Cards
-   一覧ページなどで使う集計カード
+   集計カード
 ========================================================= */
 .summary-grid {
   display: grid;
@@ -386,7 +453,7 @@ label {
 
 /* =========================================================
    08. Tables
-   一覧ページ・管理画面のテーブル表示
+   一覧テーブル・テーブル内表示
 ========================================================= */
 .table-wrap {
   overflow-x: auto;
@@ -421,53 +488,50 @@ tbody tr:hover {
   max-width: 240px;
 }
 
-/* =========================================================
-   09. Admin / Register Page Parts
-   品種登録・管理画面用の画像サムネイルなど
-========================================================= */
-.admin-register-card {
-  margin-bottom: 24px;
+.table-wrap .feature-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  min-width: 72px;
+  width: auto;
+  padding: 6px 12px;
+  line-height: 1;
 }
 
-.admin-thumb {
-  width: 72px;
-  height: 72px;
-  overflow: hidden;
-  border-radius: 14px;
-  background: #f4efe8;
-  flex-shrink: 0;
-}
-
-.admin-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.table-wrap td {
+  vertical-align: middle;
 }
 
 /* =========================================================
-   10. Tags / Badges
-   状態タグ・色タグ・特徴タグ（日持ち/香り）
+   09. Tags / Status
+   色タグ・特徴タグ・在庫ステータス
 ========================================================= */
 .status {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-width: 88px;
-  padding: 8px 12px;
+  padding: 6px 12px;
   border-radius: 999px;
   font-size: 13px;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .status.ok {
-  background: var(--accent-soft);
-  color: var(--accent-dark);
+  background: #e7f8ec;
+  color: #2f7d4f;
 }
 
 .status.low {
-  background: var(--warning-soft);
-  color: var(--warning);
+  background: #fff3df;
+  color: #cc8400;
+}
+
+.status.out {
+  background: #ffe5e5;
+  color: #d33;
 }
 
 .status.danger {
@@ -545,9 +609,37 @@ tbody tr:hover {
   background: #c78fb3;
 }
 
+.feature-tag.soldout {
+  background: #999;
+}
+
 /* =========================================================
-   11. Order Page
-   注文登録ページ：カートリンク・フィルター・バラカード
+   10. Admin / Register
+   在庫一覧・登録画面
+========================================================= */
+.admin-register-card {
+  margin-bottom: 24px;
+}
+
+.admin-thumb {
+  width: 72px;
+  height: 72px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #f4efe8;
+  flex-shrink: 0;
+}
+
+.admin-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* =========================================================
+   11. Order
+   注文画面・商品カード・色フィルター
 ========================================================= */
 .cart-header {
   align-items: center;
@@ -678,7 +770,6 @@ tbody tr:hover {
   transform: scale(1.03);
 }
 
-/* 注文カード：日持ち/香りタグを画像上に重ねる */
 .image-feature-tags {
   position: absolute;
   top: 10px;
@@ -756,8 +847,8 @@ tbody tr:hover {
 }
 
 /* =========================================================
-   12. Cart Page
-   カートページ：カート内商品・数量変更・合計欄
+   12. Cart / Checkout
+   カート・注文確認
 ========================================================= */
 .cart-page-layout,
 .checkout-layout {
@@ -767,7 +858,8 @@ tbody tr:hover {
   align-items: start;
 }
 
-.cart-items {
+.cart-items,
+.checkout-items {
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -938,10 +1030,6 @@ tbody tr:hover {
   pointer-events: none;
 }
 
-/* =========================================================
-   13. Checkout Page
-   注文確定ページ：配送・支払い・注文サマリー
-========================================================= */
 .checkout-section {
   margin-bottom: 30px;
 }
@@ -999,9 +1087,6 @@ tbody tr:hover {
 }
 
 .checkout-items {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
   margin-bottom: 20px;
 }
 
@@ -1025,8 +1110,16 @@ tbody tr:hover {
 }
 
 /* =========================================================
-   14. Welcome Page - Hero
-   ウェルカムページ：動画背景のファーストビュー
+   13. Analytics
+   売上分析ページ
+========================================================= */
+.analytics-history-card {
+  margin-top: 24px;
+}
+
+/* =========================================================
+   14. Welcome
+   ウェルカムページ
 ========================================================= */
 .video-welcome-body {
   background: #f8f6f2;
@@ -1136,22 +1229,6 @@ tbody tr:hover {
   text-transform: uppercase;
 }
 
-.fade-item {
-  opacity: 0;
-  transform: translateY(18px);
-  animation: softFadeUp 1.2s ease forwards;
-}
-
-.fade-1 { animation-delay: 0.2s; }
-.fade-2 { animation-delay: 0.6s; }
-.fade-3 { animation-delay: 1.1s; }
-.fade-4 { animation-delay: 1.6s; }
-.fade-5 { animation-delay: 2s; }
-
-/* =========================================================
-   15. Welcome Page - Concept / Collection / CTA
-   ウェルカムページ下部：コンセプト・ギャラリー・注文導線
-========================================================= */
 .compact-showcase {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1307,7 +1384,7 @@ tbody tr:hover {
   transform: scale(1.04);
 }
 
-/* 旧ウェルカム下部セクション用。HTMLから削除済みなら残しても害はなし */
+/* 以前のWelcome下層セクション用。HTMLから削除済みでも残して問題なし */
 .compact-final {
   padding-top: 18px;
   padding-bottom: 64px;
@@ -1380,9 +1457,21 @@ tbody tr:hover {
 }
 
 /* =========================================================
-   16. Animations
-   フェードイン・スクロールアイコンのアニメーション
+   15. Animations
+   アニメーション
 ========================================================= */
+.fade-item {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: softFadeUp 1.2s ease forwards;
+}
+
+.fade-1 { animation-delay: 0.2s; }
+.fade-2 { animation-delay: 0.6s; }
+.fade-3 { animation-delay: 1.1s; }
+.fade-4 { animation-delay: 1.6s; }
+.fade-5 { animation-delay: 2s; }
+
 @keyframes softFadeUp {
   to {
     opacity: 1;
@@ -1395,9 +1484,11 @@ tbody tr:hover {
     opacity: 0;
     transform: translateY(0);
   }
+
   30% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
     transform: translateY(20px);
@@ -1405,8 +1496,8 @@ tbody tr:hover {
 }
 
 /* =========================================================
-   17. Responsive - Tablet
-   1200px以下：2カラムを1カラムへ、カード幅調整
+   16. Responsive
+   タブレット・スマホ対応
 ========================================================= */
 @media (max-width: 1200px) {
   .compact-showcase,
@@ -1442,10 +1533,6 @@ tbody tr:hover {
   }
 }
 
-/* =========================================================
-   18. Responsive - Small Tablet
-   900px以下：サイドバー解除、フォーム・ギャラリーを1カラムへ
-========================================================= */
 @media (max-width: 900px) {
   .app-layout {
     grid-template-columns: 1fr;
@@ -1477,10 +1564,6 @@ tbody tr:hover {
   }
 }
 
-/* =========================================================
-   19. Responsive - Mobile
-   760px以下：スマホ表示用の細かい調整
-========================================================= */
 @media (max-width: 760px) {
   .video-hero {
     min-height: 92vh;
@@ -1548,281 +1631,4 @@ tbody tr:hover {
   .concept-start-btn {
     width: 100%;
   }
-}
-/* welcomeページ */
-.nav-divider {
-  height: 1px;
-  background: rgba(0,0,0,0.08);
-  margin: 12px 0;
-}
-
-/* side */
-.nav-divider {
-  height: 1px;
-  background: rgba(0,0,0,0.08);
-  margin: 14px 0;
-}
-
-.back-home {
-  font-size: 13px;
-  color: var(--subtext);
-  transition: 0.2s;
-}
-
-.back-home:hover {
-  color: var(--accent-dark);
-  transform: translateX(-2px);
-}
-
-.status.out {
-  background: #eeeeee;
-  color: #888888;
-}
-
-.feature-tag.soldout {
-  background: #999;
-}
-
-.card-btn:disabled,
-.qty-select:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-}
-
-/* 在庫一覧：日持ち・香りタグの表示調整 */
-.table-wrap .feature-tag {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  white-space: nowrap !important;
-  min-width: 72px !important;
-  width: auto !important;
-  padding: 6px 12px !important;
-  line-height: 1 !important;
-}
-
-.table-wrap td {
-  vertical-align: middle !important;
-}
-.success-message {
-  background: #f0f9f4;
-  color: #2f7d4f;
-  border: 1px solid #bfe8cf;
-  border-radius: 12px;
-  padding: 12px 16px;
-  margin-bottom: 16px;
-  font-weight: 700;
-}
-/* 在庫状態 */
-
-.status {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-/* 在庫あり */
-.status.ok {
-  background: #e7f8ec;
-  color: #2f7d4f;
-}
-
-/* 残り少なめ */
-.status.low {
-  background: #fff3df;
-  color: #cc8400;
-}
-
-/* 売り切れ */
-.status.out {
-  background: #ffe5e5;
-  color: #d33;
-}
-/* 日持ち・香りチェックボックス */
-/* 品種登録：チェックボックス横並び修正 */
-.stock-form .checkbox-row {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  justify-content: flex-start !important;
-  gap: 20px !important;
-}
-
-.stock-form .checkbox-row label {
-  display: inline-flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  gap: 6px !important;
-  width: auto !important;
-  min-width: 80px !important;
-  white-space: nowrap !important;
-  writing-mode: horizontal-tb !important;
-}
-
-.stock-form .checkbox-row input[type="checkbox"] {
-  width: 16px !important;
-  height: 16px !important;
-  margin: 0 !important;
-  flex: 0 0 auto !important;
-}
-/* 削除ボタン */
-.delete-btn {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 10px;
-  background: #2b2b2b;
-  color: white;
-  font-size: 12px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.delete-btn:hover {
-  background: #000;
-}
-/* analytics */
-.analytics-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-    margin-bottom:30px;
-}
-
-.analytics-card{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:#fff;
-    padding:20px 24px;
-    border-radius:16px;
-    box-shadow:0 4px 12px rgba(0,0,0,.05);
-}
-
-.analytics-card h3{
-    margin-bottom:10px;
-    font-size:14px;
-    color:#666;
-}
-
-.analytics-card p{
-    font-size:32px;
-    font-weight:bold;
-    margin:0;
-}
-
-.analytics-table{
-    width:100%;
-    border-collapse:collapse;
-    background:white;
-}
-
-.analytics-table th,
-.analytics-table td{
-    padding:12px;
-    border-bottom:1px solid #eee;
-}
-
-.analytics-table th{
-    background:#f7f7f7;
-}
-
-.analytics-title{
-    margin-top:30px;
-    margin-bottom:12px;
-    padding:12px 18px;
-
-    background:#ffffff;
-
-    border-radius:12px;
-
-    box-shadow:0 2px 8px rgba(0,0,0,.05);
-
-    font-size:18px;
-    font-weight:700;
-}
-
-.analytics-table{
-    width:100%;
-
-    border-collapse:collapse;
-
-    background:#ffffff;
-
-    border-radius:16px;
-
-    overflow:hidden;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.05);
-
-    margin-bottom:30px;
-}
-
-.analytics-table th{
-    background:#f6f7fb;
-
-    padding:14px;
-
-    text-align:center;
-
-    font-weight:700;
-
-    border-bottom:1px solid #e5e7eb;
-}
-
-.analytics-table td{
-    padding:14px;
-
-    text-align:center;
-
-    border-bottom:1px solid #f0f0f0;
-}
-
-.analytics-table tr:last-child td{
-    border-bottom:none;
-}
-
-.analytics-table tr:hover{
-    background:#fafafa;
-}
-.analytics-card p{
-    font-size:32px;
-    font-weight:700;
-    margin-top:10px;
-}
-.left-cell{
-    text-align:left !important;
-    padding-left:24px !important;
-}
-
-.number-cell{
-    text-align:center !important;
-    width:140px;
-}
-.analytics-table th:first-child{
-    text-align:left;
-    padding-left:24px;
-}
-
-.analytics-table th:not(:first-child){
-    text-align:center;
-}
-.analytics-card span{
-    width:120px;
-
-    font-size:16px;
-    font-weight:600;
-
-    color:#666;
-}
-
-.analytics-card strong{
-    flex:1;
-
-    text-align:right;
-
-    font-size:28px;
-    font-weight:700;
 }
