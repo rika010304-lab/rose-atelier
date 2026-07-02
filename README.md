@@ -15,6 +15,7 @@ https://rose-atelier.onrender.com
 在庫・注文・廃棄・注文履歴を一元管理し、在庫ロスや入力ミスの削減を目的として設計・実装しました。
 
 写真、色、香り、日持ちなど、花屋ならではの情報を見ながら商品を選べる注文画面と、在庫数や売上状況を確認できる管理画面を備えています。
+データベースにはSupabase PostgreSQLを採用し、Renderでアプリケーションを公開しています。
 
 ---
 
@@ -29,8 +30,11 @@ https://rose-atelier.onrender.com
 
 ### Database
 
-- PostgreSQL
-- Render PostgreSQL
+データベース
+・PostgreSQL（Supabase）
+
+インフラ・公開
+・Render
 
 ### Frontend
 
@@ -139,7 +143,11 @@ https://rose-atelier.onrender.com
 -  JavaScriptで在庫一覧の検索機能を実装
 - 注文画面では色別フィルターにより、目的のバラを探しやすく設計
 - 廃棄登録画面では入力内容をCSVとして出力可能
-
+・Render PostgreSQLのサービス終了に伴い、
+ PostgreSQLのバックアップ取得、
+ Supabaseへのデータ移行、
+ Renderの環境変数変更を実施し、
+ サービスを停止させることなく移行を完了。
 ---
 
 ## 初期データ
